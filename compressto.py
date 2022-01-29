@@ -3,9 +3,7 @@ import os, sys
 import glob
 
 def main(args):
-    compress_images(r"C:\Users\green\Pictures\Ryujinx",
-                    r"D:\Posho\Media\Games\Saves\Pokemon-Saves\Pokémon Legends Arceus\Screenshots\_Archive",
-                    90, "jpg", "ryujinx_capture", "PokémonLegendsArceus")
+    compress_images(*args)
 
 def compress_images(dir_from="", dir_to="", quality=90,
                     format=".jpg", str_remove="", str_put=""):
@@ -23,7 +21,7 @@ def compress_images(dir_from="", dir_to="", quality=90,
             img.save(file_final, optimize=True, quality=quality)
             print(f"Saved: {image_final}.{format}!")
             count += 1
-    print(f"Converted {count} images!" if count else "Nothing to convert today!")
+    print(f"Converted {count} images!" if count else "Nothing to convert!")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
