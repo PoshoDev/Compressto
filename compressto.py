@@ -4,7 +4,7 @@ import glob
 
 def main(args):
     compress_images(r"C:\Users\green\Pictures\Ryujinx",
-                    r"D:\Posho\Media\Games\Saves\Pokemon-Saves\Pokémon Legends Arceus\Screenshots",
+                    r"D:\Posho\Media\Games\Saves\Pokemon-Saves\Pokémon Legends Arceus\Screenshots\_Archive",
                     90, "jpg", "ryujinx_capture", "PokémonLegendsArceus")
 
 def compress_images(dir_from="", dir_to="", quality=90,
@@ -13,20 +13,17 @@ def compress_images(dir_from="", dir_to="", quality=90,
         os.chdir(dir_from)
     files = os.listdir()
     images = [file for file in files if file.endswith(("jpg", "png"))]
-    copied = 0
+    count = 0
     for image in images:
-        print(image)
         img = Image.open(image)
-        image_name = image[:-4]
-        print(f"Image name: {image_name}")
-        image_final = image_name.replace(str_remove, str_put)
-        print(str_remove)
-        print(str_put)
-        print(quality)
-        print(f"Final name: {image_final}")
-        return
-        print(f"Trying to save: {dir_to}\\{image_final}.jpg")
-        img.save(f"{dir_to}\\{image_final}.jpg", optimize=True, quality=quality)
+        image_final = image.replace(str_remove, str_put)[:-4]
+        file_final = f"{dir_to}\\{image_final}.{format}"
+        if not os.path.exists(file_final):
+            print(f"Saving: {image}")
+            img.save(file_final, optimize=True, quality=quality)
+            print(f"Saved: {image_final}.{format}!")
+            count += 1
+    print(f"Converted {count} images!" if count else "Nothing to convert today!")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
