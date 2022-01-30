@@ -1,4 +1,4 @@
-import os, sys, glob, argparse
+import os, sys, time, glob, argparse
 from PIL import Image
 
 def main():
@@ -11,6 +11,7 @@ def main():
     parser.add_argument("--str_put", type=str, default="", help="lol")
     parser.add_argument("--delete", type=bool, default=False, help="lol")
     parser.add_argument("--infinite", type=bool, default=False, help="lol")
+    parser.add_argument("--interval", type=int, default=60, help="lol")
     args = parser.parse_args()
     print("C O M P R E S S T O !")
     compress_images(args)
@@ -21,7 +22,10 @@ def compress_images(args):
     print(f"Looking for images in: {args.dir_from}...")
     count = 0
     if args.infinite:
-        while True: count += search_images(args)
+        while True:
+            count += search_images(args)
+            time.sleep(args.interval)
+            print("Searching again...")
     else: count += search_images(args)
     print(f"Converted {count} images!" if count else "Nothing to convert!")
 
