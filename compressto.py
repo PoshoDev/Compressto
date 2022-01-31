@@ -15,11 +15,15 @@ def main():
                         help="The extension of the resulting images. "
                         "Currently tested with 'jpg' and 'png'. Files with "
                         "'jpg' extension tend to be smaller in size.")
-    parser.add_argument("--str_remove", type=str, default="",
+    parser.add_argument("--matching", type=str, default="",
+                        help="A substring that must exist in the name of a "
+                        "file in order to be converted. If unused, all the "
+                        "files in the --dir_from will be converted.")
+    parser.add_argument("--str_del", type=str, default="",
                         help="A substring you want to remove from the "
                         "filename.")
     parser.add_argument("--str_put", type=str, default="",
-                        help="A substring to replace --str_remove with.")
+                        help="A substring to replace --str_del with.")
     parser.add_argument("--delete", type=bool, default=False,
                         help="Whether you want to delete the original files "
                         "once conversion is complete or not.")
@@ -64,19 +68,21 @@ def search_images(args):
     images = [file for file in files if file.endswith(("jpg", "png"))]
     count = 0
     for image in images:
-        try:
-            img = Image.open(image)
-            image_final = image.replace(args.str_remove, args.str_put)[:-4]
-            file_final = f"{args.dir_to}\\{image_final}.{args.format}"
-            if not os.path.exists(file_final):
-                if args.verbose: print(f"Saving: {image}")
-                img.save(file_final, optimize=True, quality=args.quality)
-                if args.verbose: print(f"Saved: {image_final}.{args.format}!")
-                if args.delete:
-                    os.remove(image)
-                    if args.verbose: print(f"Removed source: {image}")
-                count += 1
-        except: pass
+        if args.matching=="" or args.matching in image:
+            try:
+                img = Image.open(image)
+                image_final = image.replace(args.str_del, args.str_put)[:-4]
+                file_final = f"{args.dir_to}\\{image_final}.{args.format}"
+                if not os.path.exists(file_final):
+                    if args.verbose: print(f"Saving: {image}")
+                    img.save(file_final, optimize=True, quality=args.quality)
+                    if args.verbose:
+                        print(f"Saved: {image_final}.{args.format}!")
+                    if args.delete:
+                        os.remove(image)
+                        if args.verbose: print(f"Removed source: {image}")
+                    count += 1
+            except: pass
     return count
 
 
