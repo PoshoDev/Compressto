@@ -1,4 +1,4 @@
-# Compressto 🎩
+# 🎩 Compressto
 Batch image compression, conversion and other tools; with continuous search options.
 
 ## Usage
