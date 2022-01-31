@@ -30,7 +30,7 @@ You can use multiple flags as parameters in order to work with Compressto. Here'
 | --dir_to     | String  | ""      | The directory where you want to save your converted images.  |
 | --quality    | Int     | 90      | The quality of your converted image between **0-100**. Lower quality results in smaller file sizes. |
 | --format     | String  | "jpg"   | The extension of the resulting images. Currently tested with **'jpg'** and **'png'**. Files with 'jpg' extension tend to be smaller in size. |
-| --matching    | String | ""    | A substring that must exist in the name of a file in order to be converted. If unused, all the files in the --dir_from will be converted.              |
+| --match    | String | ""    | A substring that must exist in the name of a file in order to be converted. If unused, all the files in the --dir_from will be converted.              |
 | --str_del | String  | ""      | A substring you want to remove from the filename.            |
 | --str_put    | String  | ""      | A substring to replace **--str_del** with.                |
 | --delete     | Boolean | False   | Whether you want to delete the original files once conversion is complete or not. |

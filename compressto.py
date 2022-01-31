@@ -15,7 +15,7 @@ def main():
                         help="The extension of the resulting images. "
                         "Currently tested with 'jpg' and 'png'. Files with "
                         "'jpg' extension tend to be smaller in size.")
-    parser.add_argument("--matching", type=str, default="",
+    parser.add_argument("--match", type=str, default="",
                         help="A substring that must exist in the name of a "
                         "file in order to be converted. If unused, all the "
                         "files in the --dir_from will be converted.")
@@ -68,7 +68,7 @@ def search_images(args):
     images = [file for file in files if file.endswith(("jpg", "png"))]
     count = 0
     for image in images:
-        if args.matching=="" or args.matching in image:
+        if args.match=="" or args.match in image:
             try:
                 img = Image.open(image)
                 image_final = image.replace(args.str_del, args.str_put)[:-4]
